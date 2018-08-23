@@ -50,3 +50,14 @@ exports.modelLogDebug = payload => modelLog('debug')(payload);
 exports.modelLogInfo = payload => modelLog('info')(payload);
 exports.modelLogWarning = payload => modelLog('warning')(payload);
 exports.modelLogError = payload => modelLog('error')(payload);
+
+
+// --- ELK action log payload wrapping ------------
+
+// payload = getLogPayload(FUNC_NAME)('xxxmethod')(data)(int|null);
+exports.getLogPayload = groupName => methodName => data => (memberId = null) => ({
+  group: groupName,
+  method: methodName,
+  data,
+  memberId
+});
