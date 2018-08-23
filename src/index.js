@@ -1,0 +1,1 @@
+export const debugLog = msg => console.log(`[debug] ${msg}`);
