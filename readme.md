@@ -26,7 +26,7 @@ startLog(event); // Lambda Event Start: {"foo":"bar","hello":"world"}
 endLog(event); // Lambda Event End: {"foo":"bar","hello":"world"}
 ```
 
-For ELK action logs:
+For ELK action logs (basic):
 
 ``` js
 const {actionLog} = require('../src/index');
@@ -36,4 +36,32 @@ const payload = {group: 'mygroup', method: 'paySomething', data: event}; // opti
 
 actionLog('handler')('debug')(payload); // DEV,debug,handler,mygroup,paySomething,{"foo":"bar","hello":"world"}
 
+```
+
+For ELK action logs (more specific):
+
+Includes: 
+  - handlerLog(logLevel: string)(payload: object)
+  - handlerLogDebug(payload)
+  - handlerLogInfo
+  - handlerLogWarning
+  - handlerLogError
+  - modelLog(logLevel: string)(payload: object)
+  - modelLogDebug(payload)
+  - modelLogInfo
+  - modelLogWarning
+  - modelLogError
+
+For example: 
+
+``` js
+const {handlerLog, modelLog, handlerLogDebug, modelLogWarning} = require('../src/index');
+
+const event = {foo: 'bar'};
+const payload = {group: 'mygroup', method: 'paySomething', data: event};
+
+handlerLog('hello')(payload); // DEV,hello,handler,mygroup,paySomething,{"foo":"bar"}
+modelLog('world')(payload); // DEV,world,model,mygroup,paySomething,{"foo":"bar"}
+handlerLogDebug(payload); // DEV,debug,handler,mygroup,paySomething,{"foo":"bar"}
+modelLogWarning(payload); // DEV,warning,model,mygroup,paySomething,{"foo":"bar"}
 ```

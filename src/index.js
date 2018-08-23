@@ -34,3 +34,19 @@ const actionLog = actionType => logLevel => payload => {
   console.log(logStr);
 };
 exports.actionLog = actionLog;
+
+const handlerLog = logLevel => payload => actionLog('handler')(logLevel)(payload);
+exports.handlerLog = handlerLog;
+
+exports.handlerLogDebug = payload => handlerLog('debug')(payload);
+exports.handlerLogInfo = payload => handlerLog('info')(payload);
+exports.handlerLogWarning = payload => handlerLog('warning')(payload);
+exports.handlerLogError = payload => handlerLog('error')(payload);
+
+const modelLog = logLevel => payload => actionLog('model')(logLevel)(payload);
+exports.modelLog = modelLog;
+
+exports.modelLogDebug = payload => modelLog('debug')(payload);
+exports.modelLogInfo = payload => modelLog('info')(payload);
+exports.modelLogWarning = payload => modelLog('warning')(payload);
+exports.modelLogError = payload => modelLog('error')(payload);
