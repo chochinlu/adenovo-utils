@@ -15,7 +15,7 @@ debugLog('for debug usage');  // [debug] for debug usage
 For ELK duration logs:
 
 ``` js
-const {durationLog, startLog, endLog} = require('../src/index');
+const {durationLog, startLog, endLog} = require('adenovo-utils');
 
 const event = {foo: 'bar', hello: 'world'}; // your event object
 
@@ -29,7 +29,7 @@ endLog(event); // Lambda Event End: {"foo":"bar","hello":"world"}
 For ELK action logs (basic):
 
 ``` js
-const {actionLog} = require('../src/index');
+const {actionLog} = require('adenovo-utils');
 
 const event = {foo: 'bar', hello: 'world'};
 const payload = {group: 'mygroup', method: 'paySomething', data: event}; // optional: memberId
