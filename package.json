@@ -1,9 +1,11 @@
 {
   "name": "adenovo-utils",
   "version": "0.0.1",
+  "description": "util methods for adenovo",
   "main": "src/index.js",
   "repository": "https://github.com/chochinlu/adenovo-utils.git",
   "keywords": [
+    "adenovo",
     "util",
     "log",
     "logger"
