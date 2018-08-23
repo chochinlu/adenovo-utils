@@ -1,6 +1,6 @@
 {
   "name": "adenovo-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "util methods for adenovo",
   "main": "src/index.js",
   "repository": "https://github.com/chochinlu/adenovo-utils.git",
