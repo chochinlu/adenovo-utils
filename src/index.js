@@ -1,3 +1,8 @@
+const pid = require('./pid');
+exports.pid = pid;
+
+
+
 // ---- basic logs ------------
 
 exports.debugLog = msg => console.log(`[debug] ${msg}`);
