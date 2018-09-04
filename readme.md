@@ -4,7 +4,7 @@ Util methods for [Adenovo](https://www.adenovo.com/):
 
 - [Pid](#pid)
 - [Basic log](#basic\ log)
-
+- [Functional utils](#functional\ utils): pipe, pipeAsync, compose, composeAsync...
 
 ## Pid
 
@@ -54,7 +54,7 @@ actionLog('handler')('debug')(payload); // DEV,debug,handler,mygroup,paySomethin
 
 ```
 
-### For ELK action logs (more specific):
+### For ELK action logs (more specific)
 
 Includes:
   - handlerLog(logLevel: string)(payload: object)
@@ -82,7 +82,7 @@ handlerLogDebug(payload); // DEV,debug,handler,mygroup,paySomething,{"foo":"bar"
 modelLogWarning(payload); // DEV,warning,model,mygroup,paySomething,{"foo":"bar"}
 ```
 
-### ELK action log payload wrapping: 
+### ELK action log payload wrapping
 
 ``` js
 const {handlerLogInfo, getLogPayload} = require('adenovo-utils');
@@ -102,4 +102,17 @@ const member_id = 1234;
 handlerLogInfo(logPayload(orderInfo)(memberId));
 ```
 
-# bbblog
+## Functional utils
+
+``` js
+const {pipe, pipeAsync, compose, composeAsync} = require('adenovo-utils').functional;
+
+const fn1 = a => a + 2;
+const fn2 = a => a * 3;
+
+const resp1 = pipe(fn1, fn2)(3); //  3 -> fn1 -> fn2 , result: 15
+
+const resp2 = compose(fn1, fn2)(3); // 3 -> fn2 -> fn1, result: 11
+```
+
+`pipeAsync` and `composeAsync` are async pipe/compose version, you can chain your async functions !
