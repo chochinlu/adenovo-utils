@@ -5,6 +5,7 @@ Util methods for [Adenovo](https://www.adenovo.com/):
 - [Pid](#pid)
 - [Basic log](#basic\ log)
 - [Functional utils](#functional\ utils): pipe, pipeAsync, compose, composeAsync...
+- [Object utils](#object\ utils): check if object empty, remove empty values from object...
 
 ## Pid
 
@@ -116,3 +117,21 @@ const resp2 = compose(fn1, fn2)(3); // 3 -> fn2 -> fn1, result: 11
 ```
 
 `pipeAsync` and `composeAsync` are async pipe/compose version, you can chain your async functions !
+
+
+## Object utils
+
+`removeEmpty` will remove the null and undefined entries from an object (will not remove empty string value).
+
+``` js
+const {isEmpty, removeEmpty} = require('adenovo-utils').obj;
+
+const obj1 = {};
+const obj2 = {a: 1, b:2};
+
+const result1 = isEmpty(obj1); // true
+const result2 = isEmpty(obj2); // false
+
+const obj3 =  {a:1, b: undefined, c: null, d: 1, e: ''};
+const result3 = removeEmpty(a); // { a: 1, d: 1, e: '' }
+```

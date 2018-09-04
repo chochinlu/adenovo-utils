@@ -1,7 +1,9 @@
 const pid = require('./pid');
 const functional = require('./functional');
+const obj = require('./obj');
 exports.pid = pid;
 exports.functional = functional;
+exports.obj = obj;
 
 
 // ---- basic logs ------------
