@@ -15,10 +15,10 @@ Util methods for [Adenovo](https://www.adenovo.com/):
 ``` js
 const {checkPid, genPid} = require('adenovo-utils').pid;
 
-const somePid = pid.genPid(); //'B169298328'
-const errorResult = pid.checkPid('dsds'); // { result: false, msg: '身分證字號長度不正確' }
+const somePid = genPid(); //'B169298328'
+const errorResult = checkPid('dsds'); // { result: false, msg: '身分證字號長度不正確' }
 
-const okResult = pid.checkPid('B169298328'); // { result: true }
+const okResult = checkPid('B169298328'); // { result: true }
 ```
 
 ## Basic log
