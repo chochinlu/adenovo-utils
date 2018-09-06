@@ -1,8 +1,8 @@
 {
   "name": "adenovo-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "util methods for adenovo",
-  "main": "build/index.js",
+  "main": "lib/adenovo-utils.min.js",
   "repository": "https://github.com/chochinlu/adenovo-utils.git",
   "scripts": {
     "build": "webpack --env dev && webpack --env build",
