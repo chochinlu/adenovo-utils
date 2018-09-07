@@ -135,3 +135,15 @@ const result2 = isEmpty(obj2); // false
 const obj3 =  {a:1, b: undefined, c: null, d: 1, e: ''};
 const result3 = removeEmpty(a); // { a: 1, d: 1, e: '' }
 ```
+
+a `{key: key}` translator:
+
+``` js
+const {keyMirror} = require('adenovo-utils').obj;
+
+const arr1 = ['a', 'b'];
+keyMirror(arr1);  //{ a: 'a', b: 'b'}
+
+const arr2 = [1, 2];
+keyMirror(arr2);  //{ '1': 1, '2': 1}
+```

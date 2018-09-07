@@ -12,5 +12,12 @@ const removeEmpty = obj =>
     .filter(j => obj[j]!==null && obj[j] !== undefined)
     .reduce((a, b) => ({...a, [b]:obj[b]}), {});
 
+// a {key: key} translator
+const keyMirror = arr => arr
+  .map(a => ({ [a]: a }))
+  .reduce((a, b) => ({ ...a, ...b }), {});
+
+
 exports.isEmpty = isEmpty;
 exports.removeEmpty = removeEmpty;
+exports.keyMirror = keyMirror;
