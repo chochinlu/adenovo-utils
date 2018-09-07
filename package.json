@@ -1,18 +1,31 @@
 {
   "name": "adenovo-utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "util methods for adenovo",
+  "files": [ 
+    "lib" 
+  ],
   "main": "lib/adenovo-utils.min.js",
-  "repository": "https://github.com/chochinlu/adenovo-utils.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chochinlu/adenovo-utils.git"  
+  },
+  "bugs": {
+    "url": "https://github.com/chochinlu/adenovo-utils/issues"  
+  },
   "scripts": {
-    "build": "webpack --env dev && webpack --env build",
+    "clean": "rimraf lib/",
+    "build": "npm run clean && webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev"
   },
   "keywords": [
     "adenovo",
     "util",
     "log",
-    "logger"
+    "logger",
+    "身分證",
+    "中華民國",
+    "idcard"
   ],
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -21,6 +34,7 @@
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-transform-modules-umd": "^7.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "rimraf": "^2.6.2",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "yargs": "^12.0.1"

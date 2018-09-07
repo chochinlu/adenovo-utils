@@ -1,3 +1,4 @@
 .vscode
 node_modules
-lib/adenovo-utils.js
+lib
+npm-debug.log
