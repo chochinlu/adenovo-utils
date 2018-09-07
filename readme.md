@@ -24,7 +24,7 @@ const okResult = checkPid('B169298328'); // { result: true }
 ## Basic log
 
 ``` js
-const {debugLog} = require('adenovo-utils');
+const {debugLog} = require('adenovo-utils').log;
 
 debugLog('for debug usage');  // [debug] for debug usage
 ```
@@ -32,7 +32,7 @@ debugLog('for debug usage');  // [debug] for debug usage
 ### For ELK duration logs:
 
 ``` js
-const {durationLog, startLog, endLog} = require('adenovo-utils');
+const {durationLog, startLog, endLog} = require('adenovo-utils').log;
 
 const event = {foo: 'bar', hello: 'world'}; // your event object
 
@@ -46,7 +46,7 @@ endLog(event); // Lambda Event End: {"foo":"bar","hello":"world"}
 ### For ELK action logs (basic)
 
 ``` js
-const {actionLog} = require('adenovo-utils');
+const {actionLog} = require('adenovo-utils').log;
 
 const event = {foo: 'bar', hello: 'world'};
 const payload = {group: 'mygroup', method: 'paySomething', data: event}; // optional: memberId
@@ -72,7 +72,7 @@ Includes:
 For example:
 
 ``` js
-const {handlerLog, modelLog, handlerLogDebug, modelLogWarning} = require('adenovo-utils');
+const {handlerLog, modelLog, handlerLogDebug, modelLogWarning} = require('adenovo-utils').log;
 
 const event = {foo: 'bar'};
 const payload = {group: 'mygroup', method: 'paySomething', data: event};
@@ -86,7 +86,7 @@ modelLogWarning(payload); // DEV,warning,model,mygroup,paySomething,{"foo":"bar"
 ### ELK action log payload wrapping
 
 ``` js
-const {handlerLogInfo, getLogPayload} = require('adenovo-utils');
+const {handlerLogInfo, getLogPayload} = require('adenovo-utils').log;
 
 const FUNC_TITLE = 'xxxxPayment';
 const logFuncPayload = getLogPayload(FUNC_TITLE);
