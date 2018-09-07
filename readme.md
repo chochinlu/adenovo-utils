@@ -1,11 +1,11 @@
 # Adenovo utils
 
-Util methods for [Adenovo](https://www.adenovo.com/):
+Util methods for [Adenovo](https://www.adenovo.com/),  maybe you can find what utils you want here.
 
 - [Pid](#pid)
-- [Basic log](#basic\ log)
-- [Functional utils](#functional\ utils): pipe, pipeAsync, compose, composeAsync...
-- [Object utils](#object\ utils): check if object empty, remove empty values from object...
+- [Basic log](#basic-log)
+- [Functional utils](#functional-utils): pipe, pipeAsync, compose, composeAsync...
+- [Object utils](#object-utils): check if object empty, remove empty values from object...
 
 ## Pid
 
@@ -43,7 +43,7 @@ startLog(event); // Lambda Event Start: {"foo":"bar","hello":"world"}
 endLog(event); // Lambda Event End: {"foo":"bar","hello":"world"}
 ```
 
-### For ELK action logs (basic):
+### For ELK action logs (basic)
 
 ``` js
 const {actionLog} = require('adenovo-utils');
