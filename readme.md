@@ -7,7 +7,9 @@ Util methods for [Adenovo](https://www.adenovo.com/),  maybe you can find what u
 - [Functional utils](#functional-utils): pipe, pipeAsync, compose, composeAsync...
 - [Object utils](#object-utils): check if object empty, remove empty values from object...
 
-## Pid
+## Usage
+
+### Pid
 
 中華民國身分證字號檢查與產生器, 基於[wiki](https://zh.wikipedia.org/wiki/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E5%9C%8B%E6%B0%91%E8%BA%AB%E5%88%86%E8%AD%89#%E7%B7%A8%E8%99%9F%E8%A6%8F%E5%89%87)
 
@@ -21,7 +23,7 @@ const errorResult = checkPid('dsds'); // { result: false, msg: '身分證字號�
 const okResult = checkPid('B169298328'); // { result: true }
 ```
 
-## Basic log
+### Basic log
 
 ``` js
 const {debugLog} = require('adenovo-utils').log;
@@ -103,7 +105,7 @@ const member_id = 1234;
 handlerLogInfo(logPayload(orderInfo)(memberId));
 ```
 
-## Functional utils
+### Functional utils
 
 ``` js
 const {pipe, pipeAsync, compose, composeAsync} = require('adenovo-utils').functional;
@@ -119,7 +121,7 @@ const resp2 = compose(fn1, fn2)(3); // 3 -> fn2 -> fn1, result: 11
 `pipeAsync` and `composeAsync` are async pipe/compose version, you can chain your async functions !
 
 
-## Object utils
+### Object utils
 
 `removeEmpty` will remove the null and undefined entries from an object (will not remove empty string value).
 
@@ -146,4 +148,16 @@ keyMirror(arr1);  //{ a: 'a', b: 'b'}
 
 const arr2 = [1, 2];
 keyMirror(arr2);  //{ '1': 1, '2': 1}
+```
+
+## Development
+
+### ReasonML
+
+Fisrt git clone this repo, then:
+
+``` txt
+$ npm run bsstart // run bucklescript watch server
+$ npm run bsbuild
+$ npm run baclean // clear all *.bs.js
 ```
