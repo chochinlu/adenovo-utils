@@ -18,12 +18,41 @@ function code(someCode) {
   }
 }
 
+function jsonStr(body) {
+  return JSON.stringify(body);
+}
+
+function jsonStrBodyMsg(body) {
+  return ", body: " + JSON.stringify(body);
+}
+
+function msg(param) {
+  var body = param[1];
+  switch (param[0]) {
+    case 0 : 
+        return "Ok";
+    case 1 : 
+        return "Created";
+    case 2 : 
+        return "Missing or Bad Parameters, body: " + JSON.stringify(body);
+    case 3 : 
+        return "User Authentication Error, body: " + JSON.stringify(body);
+    case 4 : 
+        return "Internal Server Error, body: " + JSON.stringify(body);
+    
+  }
+}
+
 var basicHeader = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Credentials": true
 };
 
 function resp(someCode, body) {
+  console.log(msg(/* tuple */[
+            someCode,
+            body
+          ]));
   return {
           statusCode: code(someCode),
           headers: basicHeader,
@@ -31,43 +60,35 @@ function resp(someCode, body) {
         };
 }
 
-function responseOk(param) {
+function respOk(param) {
   return resp(/* Ok */0, param);
 }
 
-function responseAddOk(param) {
+function respCreated(param) {
   return resp(/* Created */1, param);
 }
 
-function responseBadRequest(param) {
+function respBadRequest(param) {
   return resp(/* BadRequest */2, param);
 }
 
-function responseNotAuth(param) {
+function respUnAuthed(param) {
   return resp(/* Unauthorized */3, param);
 }
 
-function responseInternalErr(param) {
+function respServerErr(param) {
   return resp(/* InternalServerError */4, param);
 }
 
-function responseErrWithMsg(msg) {
-  return responseBadRequest("{\"message\": " + (String(msg) + "}"));
-}
-
-var responseAddOperationOk = responseBadRequest("{\"result\": \"ok\"}");
-
-var responseErr = responseBadRequest;
-
 exports.code = code;
+exports.jsonStr = jsonStr;
+exports.jsonStrBodyMsg = jsonStrBodyMsg;
+exports.msg = msg;
 exports.basicHeader = basicHeader;
 exports.resp = resp;
-exports.responseOk = responseOk;
-exports.responseAddOk = responseAddOk;
-exports.responseBadRequest = responseBadRequest;
-exports.responseNotAuth = responseNotAuth;
-exports.responseInternalErr = responseInternalErr;
-exports.responseErr = responseErr;
-exports.responseErrWithMsg = responseErrWithMsg;
-exports.responseAddOperationOk = responseAddOperationOk;
-/* responseAddOperationOk Not a pure module */
+exports.respOk = respOk;
+exports.respCreated = respCreated;
+exports.respBadRequest = respBadRequest;
+exports.respUnAuthed = respUnAuthed;
+exports.respServerErr = respServerErr;
+/* No side effect */

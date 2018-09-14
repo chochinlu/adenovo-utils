@@ -14,6 +14,18 @@ let code = (someCode: statusCode) : int =>
   | InternalServerError => 500
   };
 
+let jsonStr = (body: Js.Json.t) => body -> Js.Json.stringify;
+let jsonStrBodyMsg =  (body: Js.Json.t) => ", body: " ++ jsonStr(body);
+
+let msg = ((someCode: statusCode,  body: Js.Json.t)) : string =>
+  switch (someCode) {
+  | Ok => "Ok"
+  | Created => "Created" 
+  | BadRequest => "Missing or Bad Parameters" ++ jsonStrBodyMsg(body)
+  | Unauthorized => "User Authentication Error" ++ jsonStrBodyMsg(body)
+  | InternalServerError => "Internal Server Error" ++ jsonStrBodyMsg(body)
+  };
+
 [@bs.deriving abstract]
 type headers = {
   [@bs.as "Access-Control-Allow-Origin"]
@@ -31,23 +43,18 @@ type responseObj = {
   body: string,
 };
 
-let resp = (someCode: statusCode, body: Js.Json.t) =>
+let resp = (someCode: statusCode, body: Js.Json.t) => {
+  (someCode, body) -> msg -> Js.log;
+
   responseObj(
     ~statusCode=code(someCode),
     ~headers=basicHeader,
-    ~body=Js.Json.stringify(body),
+    ~body=body -> jsonStr,
   );
+};
 
-let responseOk = Ok -> resp;
-let responseAddOk = Created -> resp;
-let responseBadRequest = BadRequest -> resp;
-let responseNotAuth = Unauthorized -> resp;
-let responseInternalErr = InternalServerError -> resp;
-
-let responseErr = responseBadRequest;
-
-let responseErrWithMsg = (msg: string) =>
-  {j|{"message": $msg}|j} -> Js.Json.string -> responseBadRequest;
-
-let responseAddOperationOk = {j|{"result": "ok"}|j} -> Js.Json.string -> responseBadRequest;
-
+let respOk = Ok -> resp;
+let respCreated = Created -> resp;
+let respBadRequest = BadRequest -> resp;
+let respUnAuthed = Unauthorized -> resp;
+let respServerErr = InternalServerError -> resp;
