@@ -1,3 +1,3 @@
-const { respBadRequest } = require("./Response.bs");
+const response = require("./Response.bs");
 
-respBadRequest({ hello: "world" });
+console.log(response.respBadRequest({ foo: "bar" }));
