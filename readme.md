@@ -177,7 +177,7 @@ Included methods:
 
 ```js
 const { respBadRequest } = require("adenovo-utils").res;
-respBadRequest({ foo: "bar" }); // console.log : Missing or Bad Parameters, body: {"foo":"bar"}
+respBadRequest("hello", { foo: "bar" }); // console.log ->  hello: Missing or Bad Parameters. body: {"foo":"bar"}
 ```
 
 For example, the `respBadRequest` method will response the following object:

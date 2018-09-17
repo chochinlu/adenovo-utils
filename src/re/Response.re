@@ -1,30 +1,42 @@
-type statusCode =
+type responseResult =
   | Ok
   | Created
-  | BadRequest
-  | Unauthorized
-  | InternalServerError;
+  | BadRequest((string, Js.Json.t))
+  | Unauthorized((string, Js.Json.t))
+  | InternalServerError((string, Js.Json.t));
 
-let code = (someCode: statusCode) : int =>
-  switch (someCode) {
+let code = (resp: responseResult) : int =>
+  switch resp {
   | Ok => 200
   | Created => 201
-  | BadRequest => 400
-  | Unauthorized => 401
-  | InternalServerError => 500
+  | BadRequest(_) => 400
+  | Unauthorized(_) => 401
+  | InternalServerError(_) => 500
   };
 
-let jsonStr = (body: Js.Json.t) => body -> Js.Json.stringify;
-let jsonStrBodyMsg =  (body: Js.Json.t) => ", body: " ++ jsonStr(body);
+let getBody =  (resp: responseResult): Js.Json.t => switch resp {
+  | Ok
+  | Created => Js.Json.null
+  | BadRequest((_, body)) 
+  | Unauthorized((_, body))
+  | InternalServerError((_, body)) => body
+};
 
-let msg = ((someCode: statusCode,  body: Js.Json.t)) : string =>
-  switch (someCode) {
+let formatedLog = (msg, title, body: Js.Json.t) => title ++ ": " ++ msg ++ ". body: " ++ Js.Json.stringify(body);
+
+let msg = (resp: responseResult) : string =>
+  switch (resp) {
   | Ok => "Ok"
-  | Created => "Created" 
-  | BadRequest => "Missing or Bad Parameters" ++ jsonStrBodyMsg(body)
-  | Unauthorized => "User Authentication Error" ++ jsonStrBodyMsg(body)
-  | InternalServerError => "Internal Server Error" ++ jsonStrBodyMsg(body)
+  | Created => "Created"
+  | BadRequest((title, body)) => "Missing or Bad Parameters" -> formatedLog(title, body)
+  | Unauthorized((title, body)) => "User Authentication Error" -> formatedLog(title, body)
+  | InternalServerError((title, body)) => "Internal Server Error" -> formatedLog(title, body)
   };
+
+let saveMsg =  (resp: responseResult)  => {
+  resp -> msg -> Js.log;
+  resp;
+};
 
 [@bs.deriving abstract]
 type headers = {
@@ -43,18 +55,16 @@ type responseObj = {
   body: string,
 };
 
-let resp = (someCode: statusCode, body: Js.Json.t) => {
-  (someCode, body) -> msg -> Js.log;
-
+let resp = (result: responseResult) => 
   responseObj(
-    ~statusCode=code(someCode),
+    ~statusCode=code(result),
     ~headers=basicHeader,
-    ~body=body -> jsonStr,
+    ~body=result -> getBody -> Js.Json.stringify,
   );
-};
 
-let respOk = Ok -> resp;
-let respCreated = Created -> resp;
-let respBadRequest = BadRequest -> resp;
-let respUnAuthed = Unauthorized -> resp;
-let respServerErr = InternalServerError -> resp;
+let respOk =  () => Ok -> resp;
+let respCreated = () => Created -> resp;
+let respBadRequest = (title, body) => BadRequest((title, body)) -> saveMsg -> resp;
+let respUnAuthed = (title, body) => Unauthorized((title, body)) -> saveMsg -> resp;
+let respServerErr = (title, body) => InternalServerError((title, body)) -> saveMsg -> resp;
+
